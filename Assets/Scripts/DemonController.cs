@@ -16,6 +16,15 @@ public class DemonController : MonoBehaviour {
 	[field: SerializeField] public float MoveSpawnDistance { get; private set; }
 	[field: SerializeField] public float RevealDistance { get; private set; }
 
+	[field: Header("Render Settings")]
+	[field: SerializeField] public Material RenderMat { get; private set; }
+	[field: SerializeField] public AudioSource StaticSource { get; private set; }
+	[field: SerializeField] public float RenderEffectDistance { get; private set; }
+	[field: SerializeField] public float FadeAwaySpeed { get; private set; }
+	[field: SerializeField] public float MaxStatic { get; private set; }
+	[field: SerializeField] public float MaxStaticVolume { get; private set; }
+	[field: SerializeField] public float MaxTint { get; private set; }
+
 	public Pathfind Pathfind { get; private set; }
 	public AudioPoolPlayer AudioPoolPlayer { get; private set; }
 	public Renderer Renderer { get; private set; }
@@ -27,6 +36,9 @@ public class DemonController : MonoBehaviour {
 	public bool IsSpawned { get; private set; }
 	public bool IsMovingSpawnPos { get; private set; }
 	public float TimeUntilCanSpawn { get; private set; }
+
+	public float CurrentStaticStrength { get; private set; }
+	public float CurrentTintStrength { get; private set; }
 
 	IEnumerator MoveSpawnPosition() {
 		if (!IsSpawned && !IsMovingSpawnPos) {
@@ -61,8 +73,14 @@ public class DemonController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (!IsSpawned && TimeUntilCanSpawn <= 0){
-			if (MazeController.IsCellOccupied(WorldPosition) || Vector2.Distance(WorldPosition, Player.WorldPosition) > MoveSpawnDistance) StartCoroutine(MoveSpawnPosition());
+		float distanceToPlayer = Vector2.Distance(WorldPosition, Player.WorldPosition);
+
+		if (!IsSpawned && TimeUntilCanSpawn <= 0) {
+			CurrentStaticStrength = Mathf.Clamp(CurrentStaticStrength - FadeAwaySpeed * MaxStatic * Time.deltaTime, 0, MaxStatic);
+			CurrentTintStrength = Mathf.Clamp(CurrentTintStrength - FadeAwaySpeed * MaxTint * Time.deltaTime, 0, MaxTint);
+			StaticSource.volume = Mathf.Clamp(StaticSource.volume - FadeAwaySpeed * MaxStaticVolume * Time.deltaTime, 0, MaxStaticVolume);
+
+			if (MazeController.IsCellOccupied(WorldPosition) || distanceToPlayer > MoveSpawnDistance) StartCoroutine(MoveSpawnPosition());
 			if (Vector2.Distance(WorldPosition, Player.WorldPosition) <= RevealDistance) {
 				RaycastHit hit;
 				if (Physics.SphereCast(Player.Camera.transform.position, 0.1f, Player.Camera.transform.forward, out hit, 21, ~RaycastIgnore, QueryTriggerInteraction.Collide)) {
@@ -70,10 +88,18 @@ public class DemonController : MonoBehaviour {
 				}
 			}
 		} else {
+			CurrentStaticStrength = Mathf.Lerp(MaxStatic, 0, distanceToPlayer / RenderEffectDistance);
+			CurrentTintStrength = Mathf.Lerp(MaxTint, 0, distanceToPlayer / RenderEffectDistance);
+			StaticSource.volume = Mathf.Lerp(MaxStaticVolume, 0, distanceToPlayer / RenderEffectDistance);
+
 			if (!Pathfind.DisablePathfinding && Pathfind.RemainingInsight <= 0 && Pathfind.Waypoints.Count == 0) Despawn();
 		}
 
 		TimeUntilCanSpawn = Mathf.Clamp(TimeUntilCanSpawn - Time.deltaTime, 0, SpawnDelay);
+
+		// Render Effects
+		RenderMat.SetFloat("_ScanlinesStrength", CurrentStaticStrength);
+		RenderMat.SetFloat("_TintStrength", CurrentTintStrength);
 	}
 
 	public IEnumerator Reveal(bool playAudio = true) {
