@@ -34,6 +34,7 @@ public class DemonController : MonoBehaviour {
 	public Vector2 WorldPosition3D { get { return Pathfind.WorldPosition3D; } }
 
 	public bool IsSpawned { get; private set; }
+	public bool IsFrozen { get; private set; }
 	public bool IsMovingSpawnPos { get; private set; }
 	public float TimeUntilCanSpawn { get; private set; }
 
@@ -75,16 +76,18 @@ public class DemonController : MonoBehaviour {
 	void Update() {
 		float distanceToPlayer = Vector2.Distance(WorldPosition, Player.WorldPosition);
 
-		if (!IsSpawned && TimeUntilCanSpawn <= 0) {
+		if (!IsSpawned) {
 			CurrentStaticStrength = Mathf.Clamp(CurrentStaticStrength - FadeAwaySpeed * MaxStatic * Time.deltaTime, 0, MaxStatic);
 			CurrentTintStrength = Mathf.Clamp(CurrentTintStrength - FadeAwaySpeed * MaxTint * Time.deltaTime, 0, MaxTint);
 			StaticSource.volume = Mathf.Clamp(StaticSource.volume - FadeAwaySpeed * MaxStaticVolume * Time.deltaTime, 0, MaxStaticVolume);
 
-			if (MazeController.IsCellOccupied(WorldPosition) || distanceToPlayer > MoveSpawnDistance) StartCoroutine(MoveSpawnPosition());
-			if (Vector2.Distance(WorldPosition, Player.WorldPosition) <= RevealDistance) {
-				RaycastHit hit;
-				if (Physics.SphereCast(Player.Camera.transform.position, 0.1f, Player.Camera.transform.forward, out hit, 21, ~RaycastIgnore, QueryTriggerInteraction.Collide)) {
-					if (hit.transform == transform) StartCoroutine(Reveal());
+			if (TimeUntilCanSpawn <= 0) {
+				if (distanceToPlayer > MoveSpawnDistance) StartCoroutine(MoveSpawnPosition());
+				if (Vector2.Distance(WorldPosition, Player.WorldPosition) <= RevealDistance) {
+					RaycastHit hit;
+					if (Physics.SphereCast(Player.Camera.transform.position, 0.1f, Player.Camera.transform.forward, out hit, 21, ~RaycastIgnore, QueryTriggerInteraction.Collide)) {
+						if (hit.transform == transform) StartCoroutine(Reveal());
+					}
 				}
 			}
 		} else {
@@ -106,6 +109,7 @@ public class DemonController : MonoBehaviour {
 		if (playAudio) AudioManager.PlayFromPool(RevealPool, 1, transform);
 		Visuals.SetActive(true);
 		IsSpawned = true;
+		IsFrozen = true;
 		
 		Pathfind.DisablePathfinding = true;
 		AudioPoolPlayer.enabled = false;
@@ -116,6 +120,8 @@ public class DemonController : MonoBehaviour {
 		Pathfind.DisablePathfinding = false;
 		AudioPoolPlayer.enabled = true;
 		Collider.isTrigger = false;
+
+		IsFrozen = false;
 	}
 
 	public void Despawn(bool playAudio = true) {
@@ -128,5 +134,11 @@ public class DemonController : MonoBehaviour {
 		Collider.isTrigger = true;
 
 		TimeUntilCanSpawn = SpawnDelay;
+	}
+
+	void OnCollisionEnter(Collision col) {
+		if (!IsSpawned || IsFrozen || !col.collider.CompareTag("Player")) return;
+
+		GameManager.EndGame();
 	}
 }

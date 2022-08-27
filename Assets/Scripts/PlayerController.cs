@@ -18,14 +18,16 @@ public class PlayerController : MazeObject {
 	[field: SerializeField] public float StaminaRechargeRate { get; private set; } = 0.5f;
 	[field: SerializeField] public float TiredSpeedMultiplier { get; private set; } = 0.2f;
 
+	public StaminaAnimationController StaminaAnimationController { get; private set; }
+	public PlayerWalkAudioPlayer WalkAudioPlayer { get; private set; }
 	public Rigidbody Rigidbody { get; private set; }
-	public Camera Camera { get; private set; }
 	public MainInput Input { get; private set; }
+	public Camera Camera { get; private set; }
 
+	public bool StaminaDepleted { get; private set; }
 	public bool Sprinting { get; private set; }
 	public bool Crouching { get; private set; }
 	public float Stamina { get; private set; }
-	public bool StaminaDepleted { get; private set; }
 
 	public UnityAction onStartSprinting;
 	public UnityAction onStopSprinting;
@@ -59,8 +61,10 @@ public class PlayerController : MazeObject {
 	}
 
 	public void Awake() {
-		Rigidbody = GetComponent<Rigidbody>();
+		StaminaAnimationController = GetComponentInChildren<StaminaAnimationController>();
+		WalkAudioPlayer = GetComponentInChildren<PlayerWalkAudioPlayer>();
 		Camera = GetComponentInChildren<Camera>();
+		Rigidbody = GetComponent<Rigidbody>();
 
 		baseHeight = transform.localScale.y;
 		Stamina = StartingStamina;

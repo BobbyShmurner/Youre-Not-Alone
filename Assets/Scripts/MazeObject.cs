@@ -8,7 +8,7 @@ public class MazeObject : MonoBehaviour {
 	Vector2 manualMoveDelta;
 
 	protected virtual void Start() {
-		GameManager.Instance.OnMazeMove.AddListener(OnMazeMove);
+		GameManager.OnMazeMove.AddListener(OnMazeMove);
 	}
 
 	public void SetWorldPosition(Vector2 newPos) {
@@ -31,7 +31,7 @@ public class MazeObject : MonoBehaviour {
 	}
 
 	void OnDestroy() {
-		GameManager.Instance.OnMazeMove.RemoveListener(OnMazeMove);
+		GameManager.OnMazeMove.RemoveListener(OnMazeMove);
 	}
 
 	void UpdateWorldPosition() {

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Static
+  m_Name: RenderMat
   m_Shader: {fileID: -6465566751694194690, guid: a2e75f21d6a881bd3a9b301abad94583,
     type: 3}
   m_ValidKeywords:
@@ -104,13 +104,13 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ScanlinesStrength: 0.0860239
+    - _ScanlinesStrength: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _Surface: 1
-    - _TintStrength: 0.0860239
+    - _TintStrength: 0
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0

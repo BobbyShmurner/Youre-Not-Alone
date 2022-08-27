@@ -27,8 +27,17 @@ public class CoroManager : MonoBehaviour {
 		Instance.StartCoroutine(InvokeNextFrameCoro(action));
 	}
 
+	public static void InvokeAfterSeconds(Action action, float seconds) {
+		Instance.StartCoroutine(InvokeAfterSecondsCoro(action, seconds));
+	}
+
 	public static IEnumerator InvokeNextFrameCoro(Action action) {
 		yield return null;
+		action();
+	}
+
+	public static IEnumerator InvokeAfterSecondsCoro(Action action, float seconds) {
+		yield return new WaitForSeconds(seconds);
 		action();
 	}
 
