@@ -1,0 +1,64 @@
+name: Build
+
+on: 
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Assets/**'
+      - 'Packages/**'
+      - 'ProjectSettings/**'
+
+jobs:
+  Build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+          cache-dependency-path: 'Python/requirements.txt'
+
+      - name: Install Python Dependencies
+        run: |
+          pip install --upgrade -r Python/requirements.txt
+
+      # Cache
+      - name: Cache Library
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-StandaloneWindows
+          restore-keys: |
+            Library-
+
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneWindows
+          buildName: YoureNotAlone
+
+      # Output
+      - name: Upload Build
+        id: upload-build
+        run: |
+          zip -r build.zip build
+          echo "::set-output name=SHARE_URL::$(python Python/UploadFile.py 'YoureNotAlone-Build-#${{ github.run_number }}.zip' 'build.zip' '${{ github.event.head_commit.message }}. Action URL: https://github.com/BobbyShmurner/Youre-Not-Alone/actions/runs/${{ github.run_id }}' '${{ secrets.DRIVE_SERVICE_KEY }}')"
+
+      - name: Discord notification
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_EMBEDS: '[{"title": "Build #${{ github.run_number }} - ${{ github.event.head_commit.message }}","description": "New Build Out Now! You can download from the link above","url": "${{ steps.upload-build.outputs.SHARE_URL }}"}]'
