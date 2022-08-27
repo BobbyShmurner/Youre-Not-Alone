@@ -1,6 +1,5 @@
 
 using System.Collections;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,7 +27,7 @@ public class UIFade : MonoBehaviour {
     public void FadeIn() {
         gameObject.SetActive(true);
         CanvasGroup.alpha = 0;
-        
+
         StartCoroutine(Fade(1));
     }
 
