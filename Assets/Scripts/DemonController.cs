@@ -44,10 +44,11 @@ public class DemonController : MonoBehaviour {
 			if (Vector2.Distance(WorldPosition, Player.WorldPosition) <= RevealDistance) {
 				RaycastHit hit;
 				if (Physics.Raycast(transform.position, Player.transform.position - transform.position, out hit, 21, ~RaycastIgnore)) {
-					Debug.Log($"Hit: {hit.transform.name}");
 					if (hit.transform.GetComponent<PlayerController>() != null) StartCoroutine(Reveal());
 				}
 			}
+		} else {
+			if (!Pathfind.DisablePathfinding && Pathfind.RemainingInsight <= 0 && Pathfind.Waypoints.Count == 0) Despawn();
 		}
 	}
 

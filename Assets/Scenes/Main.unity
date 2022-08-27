@@ -1517,6 +1517,7 @@ GameObject:
   - component: {fileID: 1534469320}
   - component: {fileID: 1534469322}
   - component: {fileID: 1534469321}
+  - component: {fileID: 1534469323}
   m_Layer: 8
   m_Name: Spotlight
   m_TagString: Untagged
@@ -1572,7 +1573,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 100
-  m_Range: 10
+  m_Range: 21
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -1621,6 +1622,20 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1534469323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534469319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1bdb2e2e08098b9caac8ac97caf7e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Target>k__BackingField: {fileID: 2085241647}
+  <Offset>k__BackingField: {x: 0, y: -0.5, z: 0}
 --- !u!1 &1658518215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1992,6 +2007,7 @@ GameObject:
   - component: {fileID: 1946000048}
   - component: {fileID: 1946000050}
   - component: {fileID: 1946000049}
+  - component: {fileID: 1946000051}
   m_Layer: 8
   m_Name: Spotlight
   m_TagString: Untagged
@@ -2047,7 +2063,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 100
-  m_Range: 10
+  m_Range: 21
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -2096,6 +2112,20 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1946000051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946000047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1bdb2e2e08098b9caac8ac97caf7e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Target>k__BackingField: {fileID: 2085241647}
+  <Offset>k__BackingField: {x: 0, y: -0.5, z: 0}
 --- !u!1 &2059827231
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,6 +2937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Target>k__BackingField: {fileID: 330585546}
+  <Offset>k__BackingField: {x: 0, y: 0, z: 0}
 --- !u!1 &7621618295745039080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2945,4 +2976,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bdb2e2e08098b9caac8ac97caf7e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Target>k__BackingField: {fileID: 2085241647}
+  <Target>k__BackingField: {fileID: 330585546}
+  <Offset>k__BackingField: {x: 0, y: 0, z: 0}
