@@ -21,7 +21,6 @@ public class PlayerController : MazeObject {
 	public StaminaAnimationController StaminaAnimationController { get; private set; }
 	public PlayerWalkAudioPlayer WalkAudioPlayer { get; private set; }
 	public Rigidbody Rigidbody { get; private set; }
-	public MainInput Input { get; private set; }
 	public Camera Camera { get; private set; }
 
 	public bool StaminaDepleted { get; private set; }
@@ -68,26 +67,30 @@ public class PlayerController : MazeObject {
 
 		baseHeight = transform.localScale.y;
 		Stamina = StartingStamina;
-
-		Input = new MainInput();
-
-		Input.Player.Move.performed += (ctx) => { movementDir = ctx.ReadValue<Vector2>(); };
-		Input.Player.Move.canceled += (ctx) => { movementDir = Vector2.zero; };
-
-		Input.Player.Look.performed += (ctx) => { lookDelta = ctx.ReadValue<Vector2>(); };
-		Input.Player.Look.canceled += (ctx) => { lookDelta = Vector2.zero; };
-
-		Input.Player.Sprint.performed += (ctx) => { SetSprinting(true); };
-		Input.Player.Sprint.canceled += (ctx) => { SetSprinting(false); };
-
-		Input.Player.Crouch.performed += (ctx) => { SetCrouching(true); };
-		Input.Player.Crouch.canceled += (ctx) => { SetCrouching(false); };
-
-		SetInputActive(true);
 	}
 
 	protected override void Start() {
 		base.Start();
+
+		GameManager.Input.Player.Move.performed += (ctx) => { movementDir = ctx.ReadValue<Vector2>(); };
+		GameManager.Input.Player.Move.canceled += (ctx) => { movementDir = Vector2.zero; };
+
+		GameManager.Input.Player.Look.performed += (ctx) => { lookDelta = ctx.ReadValue<Vector2>(); };
+		GameManager.Input.Player.Look.canceled += (ctx) => { lookDelta = Vector2.zero; };
+
+		GameManager.Input.Player.Sprint.performed += (ctx) => { SetSprinting(true); };
+		GameManager.Input.Player.Sprint.canceled += (ctx) => { SetSprinting(false); };
+
+		GameManager.Input.Player.Crouch.performed += (ctx) => { SetCrouching(true); };
+		GameManager.Input.Player.Crouch.canceled += (ctx) => { SetCrouching(false); };
+
+		GameManager.OnPause.AddListener(() => {
+			WalkAudioPlayer.enabled = false;
+		});
+
+		GameManager.OnUnpause.AddListener(() => {
+			WalkAudioPlayer.enabled = true;
+		});
 
 		while (MazeController.IsCellOccupied(WorldPosition)) {
 			MazeController.RegenerateAllChunks();
@@ -158,18 +161,11 @@ public class PlayerController : MazeObject {
 	}
 
 	void Look() {
+		if (GameManager.IsPlayerCameraLocked) return;
 		transform.Rotate(new Vector3(0, lookDelta.x * MouseSense, 0));
 
 		camXRot = Mathf.Clamp(camXRot - lookDelta.y * MouseSense, -89.9f, 89.9f);
 		Camera.transform.localEulerAngles = new Vector3(camXRot, 0, 0);
-	}
-
-	void OnEnable() { SetInputActive(true); }
-	void OnDisable() { SetInputActive(false); }
-
-	void SetInputActive(bool active) {
-		if (active) Input.Enable();
-		else Input.Disable();
 	}
 
 	public void SetCrouching(bool active) {

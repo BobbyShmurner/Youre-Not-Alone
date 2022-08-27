@@ -10,7 +10,14 @@ public class GameManager : MonoBehaviour {
 	[field: SerializeField] public Material RenderMat { get; private set; }
 
 	public static GameManager Instance { get; private set; }
+	public static MainInput Input { get; private set; }
+
 	public static UnityEvent<Vector2> OnMazeMove { get; private set; } = new UnityEvent<Vector2>();
+	public static UnityEvent OnPause { get; private set; } = new UnityEvent();
+	public static UnityEvent OnUnpause { get; private set; } = new UnityEvent();
+
+	public static bool IsPaused { get; private set; }
+	public static bool IsPlayerCameraLocked { get; private set; }
 
 	void Awake() {
 		if (Instance != null) {
@@ -19,14 +26,50 @@ public class GameManager : MonoBehaviour {
 		}
 
 		Instance = this;
+		Input = new MainInput();
 	}
 
 	void Start()  {
-		Cursor.lockState = CursorLockMode.Locked;
+		Input.General.Pause.performed += (ctx) => { 
+			if (!IsPaused) Pause();
+			else Unpause();
+		};
+
+		SetInputActive(true); 
+		SetPlayerCameraLock(false);
+	}
+
+	void OnEnable() { SetInputActive(true); }
+	void OnDisable() { SetInputActive(false); }
+
+	public static void SetInputActive(bool active) {
+		if (active) Input.Enable();
+		else Input.Disable();
 	}
 
 	public static void InvokeMazeMove(Vector2 deltaPos) {
 		OnMazeMove.Invoke(deltaPos);
+	}
+
+	public static void Pause() {
+		SetPlayerCameraLock(true);
+		
+		IsPaused = true;
+		Time.timeScale = 0;
+		OnPause.Invoke();
+	}
+
+	public static void Unpause() {
+		SetPlayerCameraLock(false);
+
+		IsPaused = false;
+		Time.timeScale = 1;
+		OnUnpause.Invoke();
+	}
+
+	public static void SetPlayerCameraLock(bool locked) {
+		Cursor.lockState = locked ? CursorLockMode.None : CursorLockMode.Locked;
+		IsPlayerCameraLocked = locked;
 	}
 
 	public static void EndGame() {
@@ -38,7 +81,7 @@ public class GameManager : MonoBehaviour {
 			audioSource.Stop();
 		}
 
-		Cursor.lockState = CursorLockMode.None;
+		SetPlayerCameraLock(true);
 
 		Instance.RenderMat.SetFloat("_ScanlinesStrength", 0);
 		Instance.RenderMat.SetFloat("_TintStrength", 0);
