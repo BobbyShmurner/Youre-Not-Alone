@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb58cb6723d3ed22932ba35dadc0d80, type: 3}
+  m_Name: AmbiencePool
+  m_EditorClassIdentifier: 
+  Clips:
+  - {fileID: 8300000, guid: 6b6c4fec4a43599eebb475370426df68, type: 3}
+  - {fileID: 8300000, guid: 248ac0709d1a3d770873be2aa954bc21, type: 3}
+  - {fileID: 8300000, guid: 6ef0bed0a498babd2b4567748dc29539, type: 3}
+  - {fileID: 8300000, guid: a659896ca25bef143aaa8d4bccf6dbee, type: 3}

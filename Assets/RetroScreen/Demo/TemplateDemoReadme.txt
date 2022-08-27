@@ -1,0 +1,1 @@
+The TemplateDemo scene demonstrates the use of the TemplateDisplayObject

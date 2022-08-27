@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb58cb6723d3ed22932ba35dadc0d80, type: 3}
+  m_Name: Monster_Reveal
+  m_EditorClassIdentifier: 
+  Clips:
+  - {fileID: 8300000, guid: a748b0e57233d9bec869c790a6813003, type: 3}
+  - {fileID: 8300000, guid: 44269223d2b6f203291580dd192c0e5f, type: 3}
+  - {fileID: 8300000, guid: b25a2ac8191cf97c1b890885a7d278ba, type: 3}

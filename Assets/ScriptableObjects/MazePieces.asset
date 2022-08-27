@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c3444ba901a9e90bc1ff070358cb06, type: 3}
+  m_Name: MazePieces
+  m_EditorClassIdentifier: 
+  End: {fileID: 2103915258403737729, guid: 82eb4d377eed830649471d4f9b687c64, type: 3}
+  Straight: {fileID: 4759412333582489992, guid: d2f8a7cccc2a8fe6eb927dc416e3e702,
+    type: 3}
+  Corner: {fileID: 7136506214839624126, guid: 7080271077ec78cdb8cee6b1a0dae93e, type: 3}
+  TSection: {fileID: 8741800609838148098, guid: 96c3e75e534c7f02a86cecd5fa592c63,
+    type: 3}
+  Cross: {fileID: 465324913249498701, guid: 41af19571d85b8cb5bcbfcc0349eedaa, type: 3}
