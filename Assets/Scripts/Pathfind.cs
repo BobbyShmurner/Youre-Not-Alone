@@ -23,6 +23,7 @@ public class Pathfind : MazeObject
 
     public float CurrentMoveSpeed { get; private set; }
     public float RemainingInsight { get; private set; }
+    public float TimeSinceLastWaypointReached { get; private set; }
     public bool LineOfSight { get; private set; }
 
     void Awake() {
@@ -42,7 +43,7 @@ public class Pathfind : MazeObject
         Waypoints.Add(Target.WorldPosition);
     }
 
-    void CheckForTarget() {
+    public void CheckForTarget() {
         LineOfSight = false;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Target.transform.position - transform.position, out hit, Mathf.Infinity, ~RaycastIgnore, QueryTriggerInteraction.Ignore)) {
@@ -67,6 +68,11 @@ public class Pathfind : MazeObject
             RemainingInsight -= Time.deltaTime;
         }
 
+        // If stuck and out of insight, tp to the next waypoint
+        if (RemainingInsight <= 0 && Waypoints.Count > 0 && Time.realtimeSinceStartup > TimeSinceLastWaypointReached + 1) {
+            SetWorldPosition(Waypoints[0]);
+        }
+
         if (LineOfSight && Vector3.Distance(WorldPosition, Target.WorldPosition) <= ReachTargetDistance) {
             CurrentMoveSpeed = 0;
         } else if (Waypoints.Count == 0 || (LineOfSight && Vector3.Distance(WorldPosition, Target.WorldPosition) <= SlowDownTargetDistance)) {
@@ -87,6 +93,7 @@ public class Pathfind : MazeObject
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
         if (Waypoints.Count > 0 && Vector3.Distance(Waypoints[0], WorldPosition) <= NextWaypointDistance) {
+            TimeSinceLastWaypointReached = Time.realtimeSinceStartup;
             Waypoints.RemoveAt(0);
         }
     }
