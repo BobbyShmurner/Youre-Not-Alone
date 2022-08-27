@@ -279,6 +279,119 @@ MonoBehaviour:
     type: 3}
   <FilledPrefab>k__BackingField: {fileID: 8532509711153812456, guid: 6824c74ec9465af7691f6ff067ea182d,
     type: 3}
+--- !u!1 &156218547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 156218548}
+  - component: {fileID: 156218552}
+  - component: {fileID: 156218551}
+  - component: {fileID: 156218550}
+  - component: {fileID: 156218549}
+  m_Layer: 7
+  m_Name: FadeIn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &156218548
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156218547}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 548292272}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &156218549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156218547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241009a6a5eaa3f4eb711d0f9d316b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <FadeInOnEnable>k__BackingField: 0
+  <FadeOutOnEnable>k__BackingField: 1
+  <DisableOnFadeOut>k__BackingField: 1
+  <LerpSpeed>k__BackingField: 3
+  <Delay>k__BackingField: 0
+  <OnFadedIn>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnFadedOut>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!225 &156218550
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156218547}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &156218551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156218547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &156218552
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156218547}
+  m_CullTransparentMesh: 1
 --- !u!1 &316820291
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +731,7 @@ RectTransform:
   - {fileID: 2059827232}
   - {fileID: 1658518216}
   - {fileID: 812432995}
+  - {fileID: 156218548}
   m_Father: {fileID: 2085241647}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -745,10 +859,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You Died!
+  m_text: You Died :(
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 471a85959fafaa07e80a876a0a202891, type: 2}
+  m_sharedMaterial: {fileID: -5293694261893546751, guid: 471a85959fafaa07e80a876a0a202891,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1250,8 +1365,9 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 471a85959fafaa07e80a876a0a202891, type: 2}
+  m_sharedMaterial: {fileID: -5293694261893546751, guid: 471a85959fafaa07e80a876a0a202891,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1314,7 +1430,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &767347919
@@ -1439,7 +1555,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 241009a6a5eaa3f4eb711d0f9d316b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <LerpSpeed>k__BackingField: 3
+  <FadeInOnEnable>k__BackingField: 1
+  <FadeOutOnEnable>k__BackingField: 0
+  <DisableOnFadeOut>k__BackingField: 1
+  <LerpSpeed>k__BackingField: 2
+  <Delay>k__BackingField: 3
   <OnFadedIn>k__BackingField:
     m_PersistentCalls:
       m_Calls:
@@ -1455,6 +1575,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  <OnFadedOut>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!225 &812432997
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1701,8 +1824,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Main Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 471a85959fafaa07e80a876a0a202891, type: 2}
+  m_sharedMaterial: {fileID: -5293694261893546751, guid: 471a85959fafaa07e80a876a0a202891,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1765,7 +1889,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1010264919
@@ -2189,7 +2313,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 5
@@ -2639,7 +2763,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.2
 --- !u!222 &1812367037
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2666,8 +2790,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: -25}
-  m_SizeDelta: {x: 62.5, y: 15}
+  m_AnchoredPosition: {x: -75, y: -25}
+  m_SizeDelta: {x: 100, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1812367039
 MonoBehaviour:
@@ -2681,7 +2805,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 241009a6a5eaa3f4eb711d0f9d316b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <FadeInOnEnable>k__BackingField: 1
+  <FadeOutOnEnable>k__BackingField: 0
+  <DisableOnFadeOut>k__BackingField: 1
   <LerpSpeed>k__BackingField: 3
+  <Delay>k__BackingField: 0
   <OnFadedIn>k__BackingField:
     m_PersistentCalls:
       m_Calls:
@@ -2697,6 +2825,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  <OnFadedOut>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!225 &1812367040
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3242,8 +3373,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: -25}
-  m_SizeDelta: {x: 62.5, y: 15}
+  m_AnchoredPosition: {x: 75, y: -25}
+  m_SizeDelta: {x: 100, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2137736435
 MonoBehaviour:
@@ -3330,7 +3461,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.2
 --- !u!222 &2137736437
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3351,8 +3482,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 241009a6a5eaa3f4eb711d0f9d316b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <FadeInOnEnable>k__BackingField: 1
+  <FadeOutOnEnable>k__BackingField: 0
+  <DisableOnFadeOut>k__BackingField: 1
   <LerpSpeed>k__BackingField: 3
+  <Delay>k__BackingField: 0
   <OnFadedIn>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnFadedOut>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!225 &2137736439
@@ -3532,7 +3670,7 @@ MonoBehaviour:
     m_Bits: 128
   <FreezeAfterSpawnDelay>k__BackingField: 1.5
   <SpawnDistance>k__BackingField: 5
-  <SpawnDelay>k__BackingField: 15
+  <SpawnDelay>k__BackingField: 60
   <MoveSpawnDistance>k__BackingField: 6
   <RevealDistance>k__BackingField: 3
   <RenderMat>k__BackingField: {fileID: 2100000, guid: c05e1a9e9fcfa300eb906d6814bb7c26,

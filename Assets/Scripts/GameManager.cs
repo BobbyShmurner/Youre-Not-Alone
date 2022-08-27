@@ -44,11 +44,10 @@ public class GameManager : MonoBehaviour {
 		Instance.RenderMat.SetFloat("_TintStrength", 0);
 
 		Instance.Player.enabled = false;
+		Instance.GameOverUI.SetActive(true);
 		Instance.Environment.SetActive(false);
 		Instance.Player.WalkAudioPlayer.enabled = false;
 		Instance.Player.StaminaAnimationController.Slider.gameObject.SetActive(false);
-
-		CoroManager.InvokeAfterSeconds(() => { Instance.GameOverUI.SetActive(true); }, 2);
 	}
 
 	public static void Restart() {
