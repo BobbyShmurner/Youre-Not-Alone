@@ -10,8 +10,14 @@ on:
 
 jobs:
   Build:
-    name: Build
+    name: Building for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneWindows
+          - StandaloneLinux64
     steps:
       # Checkout
       - name: Checkout repository
@@ -35,7 +41,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-StandaloneWindows
+          key: Library-${{ matrix.targetPlatform }}
           restore-keys: |
             Library-
 
@@ -47,7 +53,7 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: StandaloneWindows
+          targetPlatform: ${{ matrix.targetPlatform }}
           buildName: YoureNotAlone
 
       # Output
@@ -55,10 +61,10 @@ jobs:
         id: upload-build
         run: |
           zip -r build.zip build
-          echo "::set-output name=SHARE_URL::$(python Python/UploadFile.py 'YoureNotAlone-Build-#${{ github.run_number }}.zip' 'build.zip' '${{ github.event.head_commit.message }}. Action URL: https://github.com/BobbyShmurner/Youre-Not-Alone/actions/runs/${{ github.run_id }}' '${{ secrets.DRIVE_SERVICE_KEY }}')"
+          echo "::set-output name=SHARE_URL::$(python Python/UploadFile.py 'YoureNotAlone-${{ matrix.targetPlatform }}-Build-#${{ github.run_number }}.zip' 'build.zip' '${{ github.event.head_commit.message }}. Action URL: https://github.com/BobbyShmurner/Youre-Not-Alone/actions/runs/${{ github.run_id }}' '${{ secrets.DRIVE_SERVICE_KEY }}')"
 
       - name: Discord notification
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_EMBEDS: '[{"title": "Build #${{ github.run_number }} - ${{ github.event.head_commit.message }}","description": "New Build Out Now! You can download from the link above","url": "${{ steps.upload-build.outputs.SHARE_URL }}"}]'
+          DISCORD_EMBEDS: '[{"title": "(${{ matrix.targetPlatform }}): Build #${{ github.run_number }} - ${{ github.event.head_commit.message }}","description": "New Build Out Now! You can download from the link above","url": "${{ steps.upload-build.outputs.SHARE_URL }}"}]'
