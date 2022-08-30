@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour {
 	[field: SerializeField] public GameObject Environment { get; private set; }
 	[field: SerializeField] public GameObject GameOverUI { get; private set; }
+	[field: SerializeField] public GameObject PauseMenu { get; private set; }
 	[field: SerializeField] public PlayerController Player { get; private set; }
 	[field: SerializeField] public Material RenderMat { get; private set; }
 
@@ -56,6 +57,8 @@ public class GameManager : MonoBehaviour {
 		
 		IsPaused = true;
 		Time.timeScale = 0;
+		Instance.PauseMenu.SetActive(true);
+
 		OnPause.Invoke();
 	}
 
@@ -64,6 +67,8 @@ public class GameManager : MonoBehaviour {
 
 		IsPaused = false;
 		Time.timeScale = 1;
+		Instance.PauseMenu.SetActive(false);
+		
 		OnUnpause.Invoke();
 	}
 
@@ -94,10 +99,14 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public static void Restart() {
+		Unpause();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	public static void MainMenu() {
+		Unpause();
+		Cursor.lockState = CursorLockMode.None;
+		
 		SceneManager.LoadScene(0);
 	}
 }

@@ -3,10 +3,6 @@ name: Build
 on: 
   workflow_dispatch:
   push:
-    paths:
-      - 'Assets/**'
-      - 'Packages/**'
-      - 'ProjectSettings/**'
 
 jobs:
   Build:
@@ -56,12 +52,13 @@ jobs:
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: YoureNotAlone
+          customParameters: -Development
+          buildsPath: Build-#${{ github.run_number }}
 
       # Output
       - name: Upload Build
         id: upload-build
         run: |
-          mv build Build-#${{ github.run_number }}
           zip -r Build-#${{ github.run_number }}.zip Build-#${{ github.run_number }}
           echo "::set-output name=SHARE_URL::$(python Python/UploadFile.py 'YoureNotAlone-${{ matrix.targetPlatform }}-Build-#${{ github.run_number }}.zip' 'Build-#${{ github.run_number }}.zip' '${{ github.event.head_commit.message }}. Action URL: https://github.com/BobbyShmurner/Youre-Not-Alone/actions/runs/${{ github.run_id }}' '${{ secrets.DRIVE_SERVICE_KEY }}')"
 

@@ -17,6 +17,12 @@ public class DebugView : MonoBehaviour {
 	}
 
 	void Start() {
+		if (!Debug.isDebugBuild) {
+			Text.enabled = false;
+			Destroy(this);
+			return;
+		}
+		
 		StartCoroutine(UpdateFPS());
 	}
 
