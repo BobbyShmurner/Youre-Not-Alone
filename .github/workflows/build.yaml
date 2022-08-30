@@ -52,7 +52,7 @@ jobs:
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: YoureNotAlone
-          customParameters: -Development
+          customParameters: -Development -EnableDeepProfilingSupport
           buildsPath: Build-#${{ github.run_number }}
 
       # Output
