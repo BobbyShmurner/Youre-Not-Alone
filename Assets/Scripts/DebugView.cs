@@ -27,11 +27,11 @@ public class DebugView : MonoBehaviour {
 	}
 
 	void LateUpdate() {
-		if (Input.GetKeyDown(KeyCode.F12)) Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
+		if (Input.GetKeyDown(KeyCode.F10)) Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
 		if (Input.GetKeyDown(KeyCode.F3)) Text.enabled = !Text.enabled;
 
 		if (!Text.enabled) return;
-		
+
 		Vector2Int chunkPos = MazeController.GetChunkPosAtPosition(Player.WorldPosition);
 
 		StringBuilder stringBuilder = new StringBuilder();
