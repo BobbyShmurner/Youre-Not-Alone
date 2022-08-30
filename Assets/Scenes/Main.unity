@@ -142,14 +142,14 @@ MonoBehaviour:
   <RaycastIgnore>k__BackingField:
     serializedVersion: 2
     m_Bits: 768
-  <CheckForTargetInterval>k__BackingField: 0.01
+  <CheckForTargetInterval>k__BackingField: 0.1
   <InsightTime>k__BackingField: 999
-  <InsightInterval>k__BackingField: 0.01
-  <NextWaypointDistance>k__BackingField: 0.1
-  <ReachTargetDistance>k__BackingField: 1
-  <SlowDownTargetDistance>k__BackingField: 2
-  <MoveSpeed>k__BackingField: 3
-  <Acceleration>k__BackingField: 5
+  <InsightInterval>k__BackingField: 0.1
+  <NextWaypointDistance>k__BackingField: 0.5
+  <ReachTargetDistance>k__BackingField: 0
+  <SlowDownTargetDistance>k__BackingField: 3
+  <MoveSpeed>k__BackingField: 6
+  <Acceleration>k__BackingField: 2
   <RotateSpeed>k__BackingField: 0.5
 --- !u!54 &40808175
 Rigidbody:
@@ -174,7 +174,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149194658749}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d6d8a70dd185d0376979e687cc5149d2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
